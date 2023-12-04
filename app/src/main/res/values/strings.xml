@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">EvaluacionFinal</string>
+    <string name="fab_add_task_text">Agregar Tarea</string>
+</resources>
