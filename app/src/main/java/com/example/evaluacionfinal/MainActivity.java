@@ -1,25 +1,33 @@
 package com.example.evaluacionfinal;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.AsyncTask;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
+import androidx.room.Room;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements TaskListener {
 
     private RecyclerView recyclerView;
     private TaskAdapter adapter;
     private FloatingActionButton fabAddTask, fabInstructions;
-    private final ArrayList<Task> taskList = new ArrayList<>();
+    private AppDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "database-name").build();
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -30,8 +38,24 @@ public class MainActivity extends AppCompatActivity implements TaskListener {
         fabInstructions = findViewById(R.id.fabInstructions);
         fabInstructions.setOnClickListener(view -> showInstructionsDialog());
 
-        adapter = new TaskAdapter(taskList);
+        adapter = new TaskAdapter(db);
         recyclerView.setAdapter(adapter);
+        loadTasks();
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    private void loadTasks() {
+        new AsyncTask<Void, Void, List<Task>>() {
+            @Override
+            protected List<Task> doInBackground(Void... voids) {
+                return db.taskDao().getAll();
+            }
+
+            @Override
+            protected void onPostExecute(List<Task> tasks) {
+                adapter.setTasks(tasks);
+            }
+        }.execute();
     }
 
     private void showAddTaskDialog() {
@@ -52,15 +76,37 @@ public class MainActivity extends AppCompatActivity implements TaskListener {
                 .show();
     }
 
+    @SuppressLint("StaticFieldLeak")
     @Override
     public void onTaskAdded(Task task) {
-        taskList.add(task);
-        adapter.notifyDataSetChanged();
+        new AsyncTask<Task, Void, Void>() {
+            @Override
+            protected Void doInBackground(Task... tasks) {
+                db.taskDao().insert(tasks[0]);
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                loadTasks();
+            }
+        }.execute(task);
     }
 
+    @SuppressLint("StaticFieldLeak")
     @Override
     public void onTaskUpdated(Task updatedTask, int position) {
-        taskList.set(position, updatedTask);
-        adapter.notifyItemChanged(position);
+        new AsyncTask<Task, Void, Void>() {
+            @Override
+            protected Void doInBackground(Task... tasks) {
+                db.taskDao().updateTask(tasks[0]);
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                loadTasks();
+            }
+        }.execute(updatedTask);
     }
 }

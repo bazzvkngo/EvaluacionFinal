@@ -1,8 +1,16 @@
 package com.example.evaluacionfinal;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.io.Serializable;
 
+@Entity(tableName = "tasks")
 public class Task implements Serializable {
+
+    @PrimaryKey(autoGenerate = true)
+    private int id;
+
     private String title;
     private String description;
     private String dueDate;
@@ -13,6 +21,14 @@ public class Task implements Serializable {
         this.description = description;
         this.dueDate = dueDate;
         this.completed = completed;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -47,4 +63,3 @@ public class Task implements Serializable {
         this.completed = completed;
     }
 }
-

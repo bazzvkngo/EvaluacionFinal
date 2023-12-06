@@ -1,23 +1,35 @@
 package com.example.evaluacionfinal;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> {
 
-    private final ArrayList<Task> tasks;
+    private List<Task> tasks;
+    private AppDatabase db;
 
-    public TaskAdapter(ArrayList<Task> tasks) {
+    public TaskAdapter(AppDatabase db) {
+        this.tasks = new ArrayList<>();
+        this.db = db;
+    }
+
+    public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -35,8 +47,16 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         holder.taskDueDateTextView.setText(task.getDueDate());
         holder.taskCompletedCheckBox.setChecked(task.isCompleted());
 
+        if (task.isCompleted()) {
+            holder.itemView.setBackgroundResource(R.drawable.green_bubble_background);
+        } else {
+            holder.itemView.setBackgroundResource(R.drawable.bubble_background);
+        }
+
         holder.taskCompletedCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             task.setCompleted(isChecked);
+            updateTaskInDatabase(task);
+
             if (isChecked) {
                 holder.itemView.setBackgroundResource(R.drawable.green_bubble_background);
                 Toast.makeText(buttonView.getContext(), "Tarea Completada", Toast.LENGTH_SHORT).show();
@@ -66,6 +86,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
                     .setTitle("Confirmar eliminación")
                     .setMessage("¿Estás seguro de que quieres eliminar esta tarea?")
                     .setPositiveButton("Eliminar", (dialog, which) -> {
+                        Task taskToRemove = tasks.get(position);
+                        removeTaskFromDatabase(taskToRemove);
                         tasks.remove(position);
                         notifyItemRemoved(position);
                     })
@@ -73,6 +95,28 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
                     .show();
             return true;
         });
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    private void updateTaskInDatabase(Task task) {
+        new AsyncTask<Task, Void, Void>() {
+            @Override
+            protected Void doInBackground(Task... tasks) {
+                db.taskDao().updateTask(tasks[0]);
+                return null;
+            }
+        }.execute(task);
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    private void removeTaskFromDatabase(Task task) {
+        new AsyncTask<Task, Void, Void>() {
+            @Override
+            protected Void doInBackground(Task... tasks) {
+                db.taskDao().delete(tasks[0]);
+                return null;
+            }
+        }.execute(task);
     }
 
     @Override

@@ -21,8 +21,8 @@
         android:id="@+id/editTextDueDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Fecha de Vencimiento"
-        android:focusable="false"/>
+        android:focusable="false"
+        android:hint="Fecha de Vencimiento" />
 
     <Button
         android:id="@+id/buttonDate"
@@ -34,8 +34,8 @@
         android:id="@+id/buttonAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Agregar"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_gravity="center_horizontal"
+        android:text="Agregar" />
 
 
 </LinearLayout>
