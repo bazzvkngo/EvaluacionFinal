@@ -88,7 +88,7 @@ public class AddTaskDialogFragment extends DialogFragment {
                             Toast.makeText(getActivity(), "¡Tarea actualizada correctamente!", Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        Task newTask = new Task(0, title, description, dueDate, false);
+                        Task newTask = new Task(title, description, dueDate, false);
 
                         TaskListener listener = (TaskListener) getActivity();
                         listener.onTaskAdded(newTask);

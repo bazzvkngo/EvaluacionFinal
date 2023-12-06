@@ -1,8 +1,9 @@
 package com.example.evaluacionfinal;
 
 import android.annotation.SuppressLint;
-import android.os.Bundle;
 import android.os.AsyncTask;
+import android.os.Bundle;
+import android.util.Log;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -95,12 +96,14 @@ public class MainActivity extends AppCompatActivity implements TaskListener {
         new AsyncTask<Task, Void, Void>() {
             @Override
             protected Void doInBackground(Task... tasks) {
+                Log.d("MainActivity", "Attempting to update task in DB with ID: " + tasks[0].getId());
                 db.taskDao().updateTask(tasks[0]);
                 return null;
             }
 
             @Override
             protected void onPostExecute(Void aVoid) {
+                Log.d("MainActivity", "Task updated in DB, reloading tasks");
                 loadTasks();
             }
         }.execute(updatedTask);

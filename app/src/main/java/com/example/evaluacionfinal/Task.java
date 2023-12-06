@@ -16,8 +16,7 @@ public class Task implements Serializable {
     private String dueDate;
     private boolean completed;
 
-    public Task(int id, String title, String description, String dueDate, boolean completed) {
-        this.id = id;
+    public Task(String title, String description, String dueDate, boolean completed) {
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;

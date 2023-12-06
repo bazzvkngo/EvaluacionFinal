@@ -76,6 +76,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
                 public void onTaskUpdated(Task updatedTask, int taskPosition) {
                     tasks.set(taskPosition, updatedTask);
                     notifyItemChanged(taskPosition);
+                    updateTaskInDatabase(updatedTask);
                 }
             });
             dialogFragment.show(((AppCompatActivity) v.getContext()).getSupportFragmentManager(), "EditTaskDialogFragment");
