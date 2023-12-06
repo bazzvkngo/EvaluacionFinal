@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">EvaluacionFinal</string>
+    <string name="app_name">Gestión de Tareas</string>
     <string name="fab_add_task_text">Agregar Tarea</string>
     <string name="fab_instructions_text">Instrucciones</string>
 </resources>
