@@ -9,12 +9,22 @@
         android:layout_height="wrap_content" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabAddTask"
+        android:id="@+id/fabInstructions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_margin="16dp"
+        android:src="@drawable/ic_instructions"
+        android:contentDescription="@string/fab_instructions_text" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAddTask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/fabInstructions"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="16dp"
         android:src="@drawable/ic_add"
         android:contentDescription="@string/fab_add_task_text" />
 
