@@ -2,16 +2,13 @@ package com.example.evaluacionfinal;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
-
 import androidx.fragment.app.DialogFragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -88,14 +85,14 @@ public class AddTaskDialogFragment extends DialogFragment {
                         existingTask.setDueDate(dueDate);
                         if (taskEditListener != null) {
                             taskEditListener.onTaskUpdated(existingTask, taskPosition);
-                            Toast.makeText(getActivity(), "Tarea actualizada correctamente", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "¡Tarea actualizada correctamente!", Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        Task newTask = new Task(title, description, dueDate, false);
+                        Task newTask = new Task(0, title, description, dueDate, false);
 
                         TaskListener listener = (TaskListener) getActivity();
                         listener.onTaskAdded(newTask);
-                        Toast.makeText(getActivity(), "Tarea creada con éxito", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "¡Tarea creada correctamente!", Toast.LENGTH_SHORT).show();
                     }
                     dismiss();
                 } else {

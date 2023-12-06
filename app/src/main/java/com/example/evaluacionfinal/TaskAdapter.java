@@ -59,7 +59,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
 
             if (isChecked) {
                 holder.itemView.setBackgroundResource(R.drawable.green_bubble_background);
-                Toast.makeText(buttonView.getContext(), "Tarea Completada", Toast.LENGTH_SHORT).show();
+                Toast.makeText(buttonView.getContext(), "¡Tarea completada!", Toast.LENGTH_SHORT).show();
             } else {
                 holder.itemView.setBackgroundResource(R.drawable.bubble_background);
             }
@@ -90,6 +90,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
                         removeTaskFromDatabase(taskToRemove);
                         tasks.remove(position);
                         notifyItemRemoved(position);
+                        Toast.makeText(v.getContext(), "¡Tarea eliminada!", Toast.LENGTH_SHORT).show();
                     })
                     .setNegativeButton("Cancelar", null)
                     .show();

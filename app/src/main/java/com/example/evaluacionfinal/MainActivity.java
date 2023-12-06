@@ -3,16 +3,12 @@ package com.example.evaluacionfinal;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.AsyncTask;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 import androidx.room.Room;
-
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements TaskListener {

@@ -25,6 +25,9 @@ public interface TaskDao {
     @Update
     void updateTask(Task task);
 
+    @Query("UPDATE tasks SET title = :title, description = :description, dueDate = :dueDate, completed = :completed WHERE id = :taskId")
+    void updateTaskById(int taskId, String title, String description, String dueDate, boolean completed);
+
     @Delete
     void delete(Task task);
 }

@@ -16,12 +16,14 @@ public class Task implements Serializable {
     private String dueDate;
     private boolean completed;
 
-    public Task(String title, String description, String dueDate, boolean completed) {
+    public Task(int id, String title, String description, String dueDate, boolean completed) {
+        this.id = id;
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
         this.completed = completed;
     }
+
 
     public int getId() {
         return id;
