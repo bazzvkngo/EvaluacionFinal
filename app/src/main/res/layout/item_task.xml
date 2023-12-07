@@ -13,14 +13,16 @@
         android:layout_height="wrap_content"
         android:text="Task Title"
         android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textColor="@color/textColorPrimary" />
 
     <TextView
         android:id="@+id/taskDescriptionTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Task Description"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:textColor="@color/textColorPrimary" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,7 +36,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Due Date"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:textColor="@color/textColorPrimary" />
 
         <CheckBox
             android:id="@+id/taskCompletedCheckBox"

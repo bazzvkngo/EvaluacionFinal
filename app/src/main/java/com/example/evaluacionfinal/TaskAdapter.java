@@ -66,7 +66,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         });
 
         holder.itemView.setOnClickListener(v -> {
-            AddTaskDialogFragment dialogFragment = AddTaskDialogFragment.newInstance(tasks.get(position), position);
+            task.setCompleted(false);
+            updateTaskInDatabase(task);
+
+            AddTaskDialogFragment dialogFragment = AddTaskDialogFragment.newInstance(task, position);
             dialogFragment.setTaskEditListener(new TaskListener() {
                 @Override
                 public void onTaskAdded(Task task) {

@@ -9,20 +9,23 @@
         android:id="@+id/editTextTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Título" />
+        android:hint="Título"
+        android:textColor="@color/textColorPrimary" />
 
     <EditText
         android:id="@+id/editTextDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Descripción" />
+        android:hint="Descripción"
+        android:textColor="@color/textColorPrimary" />
 
     <EditText
         android:id="@+id/editTextDueDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:focusable="false"
-        android:hint="Fecha de Vencimiento" />
+        android:hint="Fecha de Vencimiento"
+        android:textColor="@color/textColorPrimary" />
 
     <Button
         android:id="@+id/buttonDate"
